@@ -1,0 +1,526 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>main</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-05-19"><meta name="DC.source" content="main.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1></h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">ex 1</a></li><li><a href="#2">ex 2</a></li><li><a href="#3">ex 3</a></li><li><a href="#4">ex 4</a></li><li><a href="#5">Reprezentare eroare E=|f-Pn|</a></li></ul></div><h2 id="1">ex 1</h2><p>Jacobianul sistemului</p><pre class="codeinput">syms <span class="string">x</span> <span class="string">y</span>;
+f1=x.^2+y.^2-4;
+f2=(x.^2)/8-y;
+Js=[diff(f1,x) diff(f1,y);
+    diff(f2,x) diff(f2,y)];
+Js=matlabFunction(Js,<span class="string">'vars'</span>,{x,y});
+Js(x,y)
+Jf=jacobian([f1; f2],[x, y])
+<span class="comment">%</span>
+<span class="comment">% Reprezentarea celor 2 curbe</span>
+f1=@(x,y)x.^2+y.^2-4;
+fimplicit(f1,[-3,3,-3,3])
+grid <span class="string">on</span>
+hold <span class="string">on</span>
+axis <span class="string">equal</span>
+f2=@(x,y)(x.^2)/8-y;
+fimplicit(f2,[-3,3,-3,3]);
+
+<span class="comment">% Determinarea punctelor de intersectie cu ajutorul metodei Newton</span>
+F=@(x,y)[x.^2+y.^2-4;x.^2/8-y]
+x0=[-2;0];
+eps=10^(-6);
+[r1,N1]=MetNewton(F,Js,x0,eps)
+x0=[2;0];
+[r2,N2]=MetNewton(F,Js,x0,eps)
+
+<span class="comment">% Reprezentarea punctelor de intersectie pe graficul curbelor</span>
+plot(r1(1),r1(2),<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>,<span class="string">'Markersize'</span>,10);
+plot(r2(1),r2(2),<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>,<span class="string">'Markersize'</span>,10);
+</pre><pre class="codeoutput"> 
+ans =
+ 
+[ 2*x, 2*y]
+[ x/4,  -1]
+ 
+ 
+Jf =
+ 
+[ 2*x, 2*y]
+[ x/4,  -1]
+ 
+
+F =
+
+  function_handle with value:
+
+    @(x,y)[x.^2+y.^2-4;x.^2/8-y]
+
+
+r1 =
+
+   -1.9435
+    0.4721
+
+
+N1 =
+
+     4
+
+
+r2 =
+
+    1.9435
+    0.4721
+
+
+N2 =
+
+     4
+
+</pre><img vspace="5" hspace="5" src="main_01.png" alt=""> <h2 id="2">ex 2</h2><p>Jacobianul sistemului</p><pre class="codeinput">figure(2)
+syms <span class="string">x1</span> <span class="string">x2</span>;
+f1=x1.^2-10*x1+x2.^2+8;
+f2=x1.*(x2.^2)+x1-10*x2+8;
+Js=[diff(f1,x1) diff(f1,x2);
+    diff(f2,x1) diff(f2,x2)];
+Js=matlabFunction(Js,<span class="string">'vars'</span>,{x1,x2});
+Js(x1,x2)
+Jf=jacobian([f1;f2],[x1,x2])
+
+<span class="comment">% Reprezentarea celor 2 curbe</span>
+f1=@(x1,x2)x1.^2-10*x1+x2.^2+8;
+fimplicit(f1,[0,5,0,5]);
+grid <span class="string">on</span>
+hold <span class="string">on</span>
+axis <span class="string">equal</span>
+f2=@(x1,x2)x1.*(x2.^2)+x1-10*x2+8;
+fimplicit(f2,[0,5,0,5]);
+
+<span class="comment">% Determinarea punctelor de intersectie cu ajutorul metodei Newton</span>
+F=@(x1,x2)[x1.^2-10*x1+x2.^2+8;x1.*(x2.^2)+x1-10*x2+8]
+x0=[1;1];
+eps=10^(-6);
+[r1,N1]=MetNewton(F,Js,x0,eps)
+x0=[3;3];
+[r2,N2]=MetNewton(F,Js,x0,eps)
+
+<span class="comment">% Reprezentarea punctelor de intersectie pe graficul curbelor</span>
+plot(r1(1),r1(2),<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>,<span class="string">'Markersize'</span>,10);
+plot(r2(1),r2(2),<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>,<span class="string">'Markersize'</span>,10);
+</pre><pre class="codeoutput"> 
+ans =
+ 
+[ 2*x1 - 10,         2*x2]
+[  x2^2 + 1, 2*x1*x2 - 10]
+ 
+ 
+Jf =
+ 
+[ 2*x1 - 10,         2*x2]
+[  x2^2 + 1, 2*x1*x2 - 10]
+ 
+
+F =
+
+  function_handle with value:
+
+    @(x1,x2)[x1.^2-10*x1+x2.^2+8;x1.*(x2.^2)+x1-10*x2+8]
+
+
+r1 =
+
+     1
+     1
+
+
+N1 =
+
+     1
+
+
+r2 =
+
+    2.1934
+    3.0205
+
+
+N2 =
+
+     4
+
+</pre><img vspace="5" hspace="5" src="main_02.png" alt=""> <h2 id="3">ex 3</h2><pre class="codeinput">figure(3)
+f = @(x)sin(x);
+X=linspace(-pi/2,pi/2,5);
+Y=f(X);
+fplot(f,[-pi/2,pi/2]);
+plot(X,Y,<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>,<span class="string">'Markersize'</span>,10);
+grid <span class="string">on</span>
+hold <span class="string">on</span>
+axis <span class="string">equal</span>
+
+<span class="comment">% Metoda directa</span>
+disp (<span class="string">'Aplicand metoda directa obtinem polinomul'</span>);
+syms <span class="string">x</span>;
+y=MetDirecta2(X,Y,x)
+disp <span class="string">'Eroarea |Pn(pi/6) - f(pi/6)|='</span>
+abs(MetDirecta2(X,Y,pi/6) - f(pi/6))
+fplot(y,[-pi/2,pi/2]);
+
+<span class="comment">% Metoda Lagrange</span>
+disp (<span class="string">'Aplicand metoda Lagrange obtinem polinomul'</span>);
+y=MetLagrange(X,Y,x)
+disp <span class="string">'Eroarea |Pn(pi/6) - f(pi/6)|='</span>
+abs(MetLagrange(X,Y,pi/6) - f(pi/6))
+fplot(y,[-pi/2,pi/2]);
+
+<span class="comment">% Metoda Newton</span>
+hold <span class="string">on</span>
+disp (<span class="string">'Aplicand metoda Newton obtinem polinomul'</span>);
+y=MetNew(X,Y,x)
+disp <span class="string">'Eroarea |Pn(pi/6) - f(pi/6)|='</span>
+abs(MetNew(X,Y,pi/6) - f(pi/6))
+fplot(y,[-pi/2,pi/2]);
+</pre><pre class="codeoutput">Aplicand metoda directa obtinem polinomul
+ 
+y =
+ 
+(8901050889487701*x)/9007199254740992 - (5133968287386267*x^3)/36028797018963968 - 299706632090081/5070602400912917605986812821504
+ 
+Eroarea |Pn(pi/6) - f(pi/6)|=
+
+ans =
+
+    0.0030
+
+Aplicand metoda Lagrange obtinem polinomul
+ 
+y =
+ 
+(562949953421312*x*(x + pi/2)*(x - pi/4)*(x + pi/4))/5140916555662875 - (562949953421312*x*(x - pi/2)*(x - pi/4)*(x + pi/4))/5140916555662875 + (1125899906842624*2^(1/2)*x*(x - pi/2)*(x + pi/2)*(x - pi/4))/5140916555662875 - (1125899906842624*2^(1/2)*x*(x - pi/2)*(x + pi/2)*(x + pi/4))/5140916555662875
+ 
+Eroarea |Pn(pi/6) - f(pi/6)|=
+
+ans =
+
+    0.0030
+
+Aplicand metoda Newton obtinem polinomul
+ 
+y =
+ 
+(3358993826523877*x)/9007199254740992 + ((3024156947890437*x)/9007199254740992 + 2375167312698781/4503599627370496)*(x + pi/4) - x*(x + pi/4)*((5133968287386267*x)/36028797018963968 + 1008052315963479/4503599627370496) - 1865452045155275/4503599627370496
+ 
+Eroarea |Pn(pi/6) - f(pi/6)|=
+
+ans =
+
+    0.0030
+
+</pre><img vspace="5" hspace="5" src="main_03.png" alt=""> <h2 id="4">ex 4</h2><pre class="codeinput">figure(4)
+f = @(x)sin(x);
+n=5;
+X=linspace(-pi/2,pi/2,n);
+Y=f(X);
+grid <span class="string">on</span>
+hold <span class="string">on</span>
+axis <span class="string">equal</span>
+
+<span class="comment">% Metoda directa</span>
+
+disp (<span class="string">'Aplicand metoda directa obtinem polinomul'</span>);
+syms <span class="string">x</span>;
+y=MetDirecta2(X,Y,x)
+plot(linspace(-pi/2,pi/2,100), MetDirecta2(X,Y,linspace(-pi/2,pi/2,100)));
+
+<span class="comment">% Metoda Lagrange</span>
+
+disp (<span class="string">'Aplicand metoda Lagrange obtinem polinomul'</span>);
+syms <span class="string">x</span>;
+y=MetLagrange(X,Y,x)
+plot(linspace(-pi/2,pi/2,100), MetLagrange(X,Y,linspace(-pi/2,pi/2,100)));
+
+<span class="comment">%%Metoda Newton</span>
+
+syms <span class="string">x</span>;
+disp (<span class="string">'Aplicand metoda Newton obtinem polinomul'</span>);
+y=MetNew(X,Y,x)
+plot(linspace(-pi/2,pi/2,100), MetNew(X,Y,linspace(-pi/2,pi/2,100)));
+plot(X,Y,<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>,<span class="string">'Markersize'</span>,10);
+<span class="comment">% fplot(f,[-pi/2,pi/2]);</span>
+legend(<span class="string">'Metoda Directa'</span>, <span class="string">'Metoda Lagrange'</span>, <span class="string">'Metoda Newton'</span>);
+hold <span class="string">off</span>
+</pre><pre class="codeoutput">Aplicand metoda directa obtinem polinomul
+ 
+y =
+ 
+(8901050889487701*x)/9007199254740992 - (5133968287386267*x^3)/36028797018963968 - 299706632090081/5070602400912917605986812821504
+ 
+Aplicand metoda Lagrange obtinem polinomul
+ 
+y =
+ 
+(562949953421312*x*(x + pi/2)*(x - pi/4)*(x + pi/4))/5140916555662875 - (562949953421312*x*(x - pi/2)*(x - pi/4)*(x + pi/4))/5140916555662875 + (1125899906842624*2^(1/2)*x*(x - pi/2)*(x + pi/2)*(x - pi/4))/5140916555662875 - (1125899906842624*2^(1/2)*x*(x - pi/2)*(x + pi/2)*(x + pi/4))/5140916555662875
+ 
+Aplicand metoda Newton obtinem polinomul
+ 
+y =
+ 
+(3358993826523877*x)/9007199254740992 + ((3024156947890437*x)/9007199254740992 + 2375167312698781/4503599627370496)*(x + pi/4) - x*(x + pi/4)*((5133968287386267*x)/36028797018963968 + 1008052315963479/4503599627370496) - 1865452045155275/4503599627370496
+ 
+</pre><img vspace="5" hspace="5" src="main_04.png" alt=""> <h2 id="5">Reprezentare eroare E=|f-Pn|</h2><pre class="codeinput"> disp(<span class="string">'Reprezentare eroare E=|f-Pn|'</span>);
+ figure(2)
+ E1=abs(f(x)-MetDirecta2(X,Y,x))
+ fplot(E1,[-pi/2,pi/2]);
+ legend(<span class="string">'Metoda Directa'</span>);
+ figure(3)
+ E2=abs(f(x)-MetLagrange(X,Y,x))
+ fplot(E2,[-pi/2,pi/2]);
+ legend(<span class="string">'Metoda Lagrange'</span>);
+ figure(4)
+ E3=abs(f(x)-MetNew(X,Y,x))
+ fplot(E3,[-pi/2,pi/2]);
+ legend(<span class="string">'Metoda Newton'</span>);
+</pre><pre class="codeoutput">Reprezentare eroare E=|f-Pn|
+ 
+E1 =
+ 
+abs(sin(x) - (8901050889487701*x)/9007199254740992 + (5133968287386267*x^3)/36028797018963968 + 299706632090081/5070602400912917605986812821504)
+ 
+ 
+E2 =
+ 
+abs(sin(x) + (562949953421312*x*(x - pi/2)*(x - pi/4)*(x + pi/4))/5140916555662875 - (562949953421312*x*(x + pi/2)*(x - pi/4)*(x + pi/4))/5140916555662875 - (1125899906842624*2^(1/2)*x*(x - pi/2)*(x + pi/2)*(x - pi/4))/5140916555662875 + (1125899906842624*2^(1/2)*x*(x - pi/2)*(x + pi/2)*(x + pi/4))/5140916555662875)
+ 
+ 
+E3 =
+ 
+abs(sin(x) - (3358993826523877*x)/9007199254740992 - ((3024156947890437*x)/9007199254740992 + 2375167312698781/4503599627370496)*(x + pi/4) + x*(x + pi/4)*((5133968287386267*x)/36028797018963968 + 1008052315963479/4503599627370496) + 1865452045155275/4503599627370496)
+ 
+</pre><img vspace="5" hspace="5" src="main_05.png" alt=""> <img vspace="5" hspace="5" src="main_06.png" alt=""> <img vspace="5" hspace="5" src="main_07.png" alt=""> <pre class="codeinput">disp (<span class="string">'Cu cat crestem gradul polinomului apar mai multe variatii ale graficului'</span>)
+disp (<span class="string">'Incepand cu n=64 polinomul isi pierde caracterul'</span>)
+</pre><pre class="codeoutput">Cu cat crestem gradul polinomului apar mai multe variatii ale graficului
+Incepand cu n=64 polinomul isi pierde caracterul
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+
+%% ex 1
+% Jacobianul sistemului
+syms x y;
+f1=x.^2+y.^2-4;
+f2=(x.^2)/8-y;
+Js=[diff(f1,x) diff(f1,y);
+    diff(f2,x) diff(f2,y)];
+Js=matlabFunction(Js,'vars',{x,y});
+Js(x,y)
+Jf=jacobian([f1; f2],[x, y])
+%
+% Reprezentarea celor 2 curbe
+f1=@(x,y)x.^2+y.^2-4;
+fimplicit(f1,[-3,3,-3,3])
+grid on
+hold on
+axis equal
+f2=@(x,y)(x.^2)/8-y;
+fimplicit(f2,[-3,3,-3,3]);
+
+% Determinarea punctelor de intersectie cu ajutorul metodei Newton
+F=@(x,y)[x.^2+y.^2-4;x.^2/8-y]
+x0=[-2;0];
+eps=10^(-6);
+[r1,N1]=MetNewton(F,Js,x0,eps)
+x0=[2;0];
+[r2,N2]=MetNewton(F,Js,x0,eps)
+
+% Reprezentarea punctelor de intersectie pe graficul curbelor
+plot(r1(1),r1(2),'o','MarkerFaceColor','r','Markersize',10);
+plot(r2(1),r2(2),'o','MarkerFaceColor','r','Markersize',10);
+
+
+%% ex 2
+% Jacobianul sistemului
+figure(2)
+syms x1 x2;
+f1=x1.^2-10*x1+x2.^2+8;
+f2=x1.*(x2.^2)+x1-10*x2+8;
+Js=[diff(f1,x1) diff(f1,x2);
+    diff(f2,x1) diff(f2,x2)];
+Js=matlabFunction(Js,'vars',{x1,x2});
+Js(x1,x2)
+Jf=jacobian([f1;f2],[x1,x2])
+
+% Reprezentarea celor 2 curbe
+f1=@(x1,x2)x1.^2-10*x1+x2.^2+8;
+fimplicit(f1,[0,5,0,5]);
+grid on
+hold on
+axis equal
+f2=@(x1,x2)x1.*(x2.^2)+x1-10*x2+8;
+fimplicit(f2,[0,5,0,5]);
+
+% Determinarea punctelor de intersectie cu ajutorul metodei Newton
+F=@(x1,x2)[x1.^2-10*x1+x2.^2+8;x1.*(x2.^2)+x1-10*x2+8]
+x0=[1;1];
+eps=10^(-6);
+[r1,N1]=MetNewton(F,Js,x0,eps)
+x0=[3;3];
+[r2,N2]=MetNewton(F,Js,x0,eps)
+
+% Reprezentarea punctelor de intersectie pe graficul curbelor
+plot(r1(1),r1(2),'o','MarkerFaceColor','r','Markersize',10);
+plot(r2(1),r2(2),'o','MarkerFaceColor','r','Markersize',10);
+
+
+
+%% ex 3
+figure(3)
+f = @(x)sin(x);
+X=linspace(-pi/2,pi/2,5);
+Y=f(X);
+fplot(f,[-pi/2,pi/2]);
+plot(X,Y,'o','MarkerFaceColor','r','Markersize',10);
+grid on
+hold on
+axis equal
+
+% Metoda directa
+disp ('Aplicand metoda directa obtinem polinomul');
+syms x;
+y=MetDirecta2(X,Y,x)
+disp 'Eroarea |Pn(pi/6) - f(pi/6)|='
+abs(MetDirecta2(X,Y,pi/6) - f(pi/6))
+fplot(y,[-pi/2,pi/2]);
+
+% Metoda Lagrange
+disp ('Aplicand metoda Lagrange obtinem polinomul');
+y=MetLagrange(X,Y,x)
+disp 'Eroarea |Pn(pi/6) - f(pi/6)|='
+abs(MetLagrange(X,Y,pi/6) - f(pi/6))
+fplot(y,[-pi/2,pi/2]);
+
+% Metoda Newton
+hold on
+disp ('Aplicand metoda Newton obtinem polinomul');
+y=MetNew(X,Y,x)
+disp 'Eroarea |Pn(pi/6) - f(pi/6)|='
+abs(MetNew(X,Y,pi/6) - f(pi/6))
+fplot(y,[-pi/2,pi/2]);
+
+%% ex 4
+figure(4)
+f = @(x)sin(x);
+n=5;
+X=linspace(-pi/2,pi/2,n);
+Y=f(X);
+grid on
+hold on
+axis equal
+
+% Metoda directa
+
+disp ('Aplicand metoda directa obtinem polinomul');
+syms x;
+y=MetDirecta2(X,Y,x)
+plot(linspace(-pi/2,pi/2,100), MetDirecta2(X,Y,linspace(-pi/2,pi/2,100)));
+
+% Metoda Lagrange
+
+disp ('Aplicand metoda Lagrange obtinem polinomul');
+syms x;
+y=MetLagrange(X,Y,x)
+plot(linspace(-pi/2,pi/2,100), MetLagrange(X,Y,linspace(-pi/2,pi/2,100)));
+
+%%Metoda Newton
+
+syms x;
+disp ('Aplicand metoda Newton obtinem polinomul');
+y=MetNew(X,Y,x)
+plot(linspace(-pi/2,pi/2,100), MetNew(X,Y,linspace(-pi/2,pi/2,100)));
+plot(X,Y,'o','MarkerFaceColor','r','Markersize',10);
+% fplot(f,[-pi/2,pi/2]);
+legend('Metoda Directa', 'Metoda Lagrange', 'Metoda Newton');
+hold off
+
+%% Reprezentare eroare E=|f-Pn|
+
+ disp('Reprezentare eroare E=|f-Pn|');
+ figure(2)
+ E1=abs(f(x)-MetDirecta2(X,Y,x))
+ fplot(E1,[-pi/2,pi/2]);
+ legend('Metoda Directa');
+ figure(3)
+ E2=abs(f(x)-MetLagrange(X,Y,x))
+ fplot(E2,[-pi/2,pi/2]);
+ legend('Metoda Lagrange');
+ figure(4)
+ E3=abs(f(x)-MetNew(X,Y,x))
+ fplot(E3,[-pi/2,pi/2]);
+ legend('Metoda Newton');
+%%
+disp ('Cu cat crestem gradul polinomului apar mai multe variatii ale graficului')
+disp ('Incepand cu n=64 polinomul isi pierde caracterul')
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>

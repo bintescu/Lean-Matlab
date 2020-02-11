@@ -1,0 +1,460 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Tema2</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-04-16"><meta name="DC.source" content="Tema2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Exercitiul 1</a></li><li><a href="#2">Exercitiul 2</a></li><li><a href="#3">Exercitiul 3</a></li><li><a href="#4">Exercitiul 4</a></li><li><a href="#5">Exercitiul 5</a></li><li><a href="#6">Exercitiul 6</a></li><li><a href="#7">Exercitiul 7</a></li><li><a href="#8">Exercitiul 8</a></li></ul></div><h2 id="1">Exercitiul 1</h2><pre class="codeinput">f1=inline(<span class="string">'8*x.^3+4*x-1'</span>,<span class="string">'x'</span>);
+a0=0
+b0=1
+x0=(a0+b0)/2
+f1(x0)*0
+disp(<span class="string">'f1(x0)*f(a0)&lt;0'</span>)
+a1=a0
+b1=x0
+x1=(a1+b1)/2
+f1(x1)*f1(a1)
+disp(<span class="string">'f1(x1)*f1(a1)&lt;0'</span>)
+a2=a1
+b2=x1
+x2=(a2+b2)/2
+f1(x2)*f1(a2)
+x2
+</pre><pre class="codeoutput">
+a0 =
+
+     0
+
+
+b0 =
+
+     1
+
+
+x0 =
+
+    0.5000
+
+
+ans =
+
+     0
+
+f1(x0)*f(a0)&lt;0
+
+a1 =
+
+     0
+
+
+b1 =
+
+    0.5000
+
+
+x1 =
+
+    0.2500
+
+
+ans =
+
+   -0.1250
+
+f1(x1)*f1(a1)&lt;0
+
+a2 =
+
+     0
+
+
+b2 =
+
+    0.2500
+
+
+x2 =
+
+    0.1250
+
+
+ans =
+
+    0.4844
+
+
+x2 =
+
+    0.1250
+
+</pre><h2 id="2">Exercitiul 2</h2><pre class="codeinput">f=inline(<span class="string">'x.^3-7*x.^2+14*x-6'</span>,<span class="string">'x'</span>);
+eps=10^(-5);
+x=linspace(0,4,100);
+y=f(x);
+plot(x,y,<span class="string">'Linewidth'</span>,4);
+grid <span class="string">on</span>;
+hold <span class="string">on</span>;
+a=0; b=1;
+r1=MetBisectie(f,a,b,eps);
+a=1; b=3.2;
+r2=MetBisectie(f,a,b,eps);
+a=3.2; b=4;
+r3=MetBisectie(f,a,b,eps);
+plot(r1,f(r1),<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'g'</span>,<span class="string">'Markersize'</span>,10);
+plot(r2,f(r2),<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>,<span class="string">'Markersize'</span>,10);
+plot(r3,f(r3),<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'y'</span>,<span class="string">'Markersize'</span>,10);
+</pre><img vspace="5" hspace="5" src="Tema2_01.png" alt=""> <h2 id="3">Exercitiul 3</h2><pre class="codeinput">figure
+y=inline(<span class="string">'exp(x)-2'</span>,<span class="string">'x'</span>);
+z=inline(<span class="string">'cos(exp(x)-2)'</span>,<span class="string">'x'</span>);
+x=linspace(0.5,1.5,100);
+plot(x,y(x),<span class="string">'LineWidth'</span>,4);
+hold <span class="string">on</span>;
+grid <span class="string">on</span>;
+plot(x,z(x),<span class="string">'LineWidth'</span>,4);
+f2=inline(<span class="string">'exp(x)-2-cos(exp(x)-2)'</span>,<span class="string">'x'</span>);
+r=MetBisectie(f2,0.5,1.5,eps)
+figure
+plot(x,f2(x),<span class="string">'LineWidth'</span>,4)
+hold <span class="string">on</span>
+plot(r,f2(r),<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>,<span class="string">'MarkerSize'</span>,10)
+</pre><pre class="codeoutput">
+r =
+
+    1.0076
+
+</pre><img vspace="5" hspace="5" src="Tema2_02.png" alt=""> <img vspace="5" hspace="5" src="Tema2_03.png" alt=""> <h2 id="4">Exercitiul 4</h2><pre class="codeinput">f3=inline(<span class="string">'x-sqrt(3)'</span>,<span class="string">'x'</span>);
+x=linspace(1,2,1000);
+r4=MetBisectie(f3,1,2,eps)
+figure
+plot(x,f3(x),<span class="string">'LineWidth'</span>,4)
+grid <span class="string">on</span>;
+</pre><pre class="codeoutput">
+r4 =
+
+    1.7322
+
+</pre><h2 id="5">Exercitiul 5</h2><pre class="codeinput">disp(<span class="string">'Problema consta in faptul ca daca x0=2 se va aproxima catre 3 care nu apartine intervalului'</span>)
+<span class="comment">% Solutia este sa alegem x0=1</span>
+
+df=inline(<span class="string">'3*x.^2-14*x+14'</span>,<span class="string">'x'</span>);
+x=linspace(0,2.5,100);
+eps=10^(-3);
+a=f(x);
+figure
+plot(x,a,<span class="string">'LineWidth'</span>,4)
+grid <span class="string">on</span>;
+hold <span class="string">on</span>;
+x0=1;
+r5=MetNR(f,df,x0,eps)
+plot(r5,f(r5),<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'g'</span>,<span class="string">'Markersize'</span>,10);
+</pre><h2 id="6">Exercitiul 6</h2><pre class="codeinput">x=linspace(0,4,100);
+eps=10^(-3);
+a=f(x);
+figure
+plot(x,a,<span class="string">'LineWidth'</span>,4)
+grid <span class="string">on</span>;
+hold <span class="string">on</span>;
+x0=1;
+r5=MetNR(f,df,x0,eps)
+plot(r5,f(r5),<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'g'</span>,<span class="string">'Markersize'</span>,10);
+x0=3;
+r6=MetNR(f,df,x0,eps)
+plot(r6,f(r6),<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'y'</span>,<span class="string">'Markersize'</span>,10);
+x0=4;
+r7=MetNR(f,df,x0,eps)
+plot(r7,f(r7),<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'b'</span>,<span class="string">'Markersize'</span>,10);
+</pre><pre class="codeoutput">
+r5 =
+
+    0.5858
+
+
+r6 =
+
+     3
+
+
+r7 =
+
+    3.4142
+
+</pre><img vspace="5" hspace="5" src="Tema2_05.png" alt=""> <h2 id="7">Exercitiul 7</h2><pre class="codeinput">g=inline(<span class="string">'8*x.^3+4*x-1'</span>,<span class="string">'x'</span>);
+dg=inline(<span class="string">'24*x.^2+4'</span>,<span class="string">'x'</span>);
+figure
+x=linspace(0,1,100);
+plot(x,g(x),<span class="string">'LineWidth'</span>,4)
+grid <span class="string">on</span>;
+disp(<span class="string">'Graficul intersecteaza odata axa Ox , rezulta ca ecuatia are o singura solutie pe intervalul [0,1]'</span>)
+a=0.1;
+b=0.3;
+x0=0.2;
+x1=0.25;
+rez1=MetNR(g,dg,x0,eps)
+rez2=MetSecantei(g,a,b,x0,x1,eps)
+<span class="comment">% ? rez3=MetPozFalse(g,a,b,eps)</span>
+</pre><pre class="codeoutput">Graficul intersecteaza odata axa Ox , rezulta ca ecuatia are o singura solutie pe intervalul [0,1]
+
+rez1 =
+
+    0.2267
+
+
+rez2 =
+
+    0.2500
+
+</pre><pre class="codeoutput error">Array indices must be positive integers or logical values.
+
+Error in MetPozFalse (line 5)
+x(1)=(a(1)*f(b(1))-b(1)*f(a(1)))/(f(b(0))-f(a(0)));
+
+Error in Tema2 (line 142)
+r11=MetPozFalse(f8,a,b,eps)
+</pre><h2 id="8">Exercitiul 8</h2><pre class="codeinput">f8=inline(<span class="string">'x.^3-18*x-10'</span>,<span class="string">'x'</span>);
+figure
+x=linspace(-5,5,100);
+plot(x,f8(x),<span class="string">'LineWidth'</span>,4)
+grid <span class="string">on</span>;
+hold <span class="string">on</span>;
+a=-5; b=-3;
+x0=-4; x1=-3.5;
+r8=MetSecantei(f8,a,b,x0,x1,eps)
+plot(r8,f(r8),<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'b'</span>,<span class="string">'Markersize'</span>,10);
+a=-2; b=1;
+x0=-1; x1=0;
+r9=MetSecantei(f8,a,b,x0,x1,eps)
+plot(r9,f(r9),<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>,<span class="string">'Markersize'</span>,10);
+a=4; b=5;
+x0=4; x1=5;
+r10=MetSecantei(f8,a,b,x0,x1,eps)
+plot(r10,f(r10),<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'g'</span>,<span class="string">'Markersize'</span>,10);
+
+figure
+x=linspace(-5,5,100);
+plot(x,f8(x),<span class="string">'LineWidth'</span>,4)
+grid <span class="string">on</span>;
+hold <span class="string">on</span>;
+a=-5; b=-3;
+r11=MetPozFalse(f8,a,b,eps)
+plot(r11,f(r11),<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'g'</span>,<span class="string">'Markersize'</span>,10);
+a=-2; b=1;
+r12=MetPozFalse(f8,a,b,eps)
+plot(r12,f(r12),<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>,<span class="string">'Markersize'</span>,10);
+a=4; b=5;
+r13=MetPozFalse(f8,a,b,eps)
+plot(r13,f(r13),<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'b'</span>,<span class="string">'Markersize'</span>,10);
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Exercitiul 1
+
+f1=inline('8*x.^3+4*x-1','x');
+a0=0
+b0=1
+x0=(a0+b0)/2
+f1(x0)*0
+disp('f1(x0)*f(a0)<0')
+a1=a0
+b1=x0
+x1=(a1+b1)/2
+f1(x1)*f1(a1)
+disp('f1(x1)*f1(a1)<0')
+a2=a1
+b2=x1
+x2=(a2+b2)/2
+f1(x2)*f1(a2)
+x2
+%% Exercitiul 2
+
+f=inline('x.^3-7*x.^2+14*x-6','x');
+eps=10^(-5);
+x=linspace(0,4,100);
+y=f(x);
+plot(x,y,'Linewidth',4);
+grid on;
+hold on;
+a=0; b=1;
+r1=MetBisectie(f,a,b,eps);
+a=1; b=3.2;
+r2=MetBisectie(f,a,b,eps);
+a=3.2; b=4;
+r3=MetBisectie(f,a,b,eps);
+plot(r1,f(r1),'o','MarkerFaceColor','g','Markersize',10);
+plot(r2,f(r2),'o','MarkerFaceColor','r','Markersize',10);
+plot(r3,f(r3),'o','MarkerFaceColor','y','Markersize',10);
+
+%% Exercitiul 3
+
+figure
+y=inline('exp(x)-2','x');
+z=inline('cos(exp(x)-2)','x');
+x=linspace(0.5,1.5,100);
+plot(x,y(x),'LineWidth',4);
+hold on;
+grid on;
+plot(x,z(x),'LineWidth',4);
+f2=inline('exp(x)-2-cos(exp(x)-2)','x');
+r=MetBisectie(f2,0.5,1.5,eps)
+figure
+plot(x,f2(x),'LineWidth',4)
+hold on
+plot(r,f2(r),'o','MarkerFaceColor','r','MarkerSize',10)
+
+%% Exercitiul 4
+
+f3=inline('x-sqrt(3)','x');
+x=linspace(1,2,1000);
+r4=MetBisectie(f3,1,2,eps)
+figure
+plot(x,f3(x),'LineWidth',4)
+grid on;
+
+%% Exercitiul 5
+disp('Problema consta in faptul ca daca x0=2 se va aproxima catre 3 care nu apartine intervalului')
+% Solutia este sa alegem x0=1
+
+df=inline('3*x.^2-14*x+14','x');
+x=linspace(0,2.5,100);
+eps=10^(-3);
+a=f(x);
+figure
+plot(x,a,'LineWidth',4)
+grid on;
+hold on;
+x0=1;
+r5=MetNR(f,df,x0,eps)
+plot(r5,f(r5),'o','MarkerFaceColor','g','Markersize',10);
+
+%% Exercitiul 6
+
+x=linspace(0,4,100);
+eps=10^(-3);
+a=f(x);
+figure
+plot(x,a,'LineWidth',4)
+grid on;
+hold on;
+x0=1;
+r5=MetNR(f,df,x0,eps)
+plot(r5,f(r5),'o','MarkerFaceColor','g','Markersize',10);
+x0=3;
+r6=MetNR(f,df,x0,eps)
+plot(r6,f(r6),'o','MarkerFaceColor','y','Markersize',10);
+x0=4;
+r7=MetNR(f,df,x0,eps)
+plot(r7,f(r7),'o','MarkerFaceColor','b','Markersize',10);
+
+%% Exercitiul 7
+
+g=inline('8*x.^3+4*x-1','x');
+dg=inline('24*x.^2+4','x');
+figure
+x=linspace(0,1,100);
+plot(x,g(x),'LineWidth',4)
+grid on;
+disp('Graficul intersecteaza odata axa Ox , rezulta ca ecuatia are o singura solutie pe intervalul [0,1]')
+a=0.1;
+b=0.3;
+x0=0.2;
+x1=0.25;
+rez1=MetNR(g,dg,x0,eps)
+rez2=MetSecantei(g,a,b,x0,x1,eps)
+% ? rez3=MetPozFalse(g,a,b,eps)
+%% Exercitiul 8
+
+f8=inline('x.^3-18*x-10','x');
+figure
+x=linspace(-5,5,100);
+plot(x,f8(x),'LineWidth',4)
+grid on;
+hold on;
+a=-5; b=-3;
+x0=-4; x1=-3.5;
+r8=MetSecantei(f8,a,b,x0,x1,eps)
+plot(r8,f(r8),'o','MarkerFaceColor','b','Markersize',10);
+a=-2; b=1;
+x0=-1; x1=0;
+r9=MetSecantei(f8,a,b,x0,x1,eps)
+plot(r9,f(r9),'o','MarkerFaceColor','r','Markersize',10);
+a=4; b=5;
+x0=4; x1=5;
+r10=MetSecantei(f8,a,b,x0,x1,eps)
+plot(r10,f(r10),'o','MarkerFaceColor','g','Markersize',10);
+
+figure
+x=linspace(-5,5,100);
+plot(x,f8(x),'LineWidth',4)
+grid on;
+hold on;
+a=-5; b=-3;
+r11=MetPozFalse(f8,a,b,eps)
+plot(r11,f(r11),'o','MarkerFaceColor','g','Markersize',10);
+a=-2; b=1;
+r12=MetPozFalse(f8,a,b,eps)
+plot(r12,f(r12),'o','MarkerFaceColor','r','Markersize',10);
+a=4; b=5;
+r13=MetPozFalse(f8,a,b,eps)
+plot(r13,f(r13),'o','MarkerFaceColor','b','Markersize',10);
+##### SOURCE END #####
+--></body></html>

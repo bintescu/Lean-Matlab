@@ -1,0 +1,353 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>ex4</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-05-29"><meta name="DC.source" content="ex4.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>ex4</h1><!--introduction--><!--/introduction--><pre class="codeinput">figure(1);
+f=@(x)sin(x);
+n=2;
+X=linspace(-pi/2,pi/2,n+1);
+Y=f(X);
+fplot(f,[-pi/2,pi/2]);
+hold <span class="string">on</span>;
+grid <span class="string">on</span>;
+plot(X,Y,<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>,<span class="string">'Markersize'</span>,10);
+syms <span class="string">x</span>;
+df=diff(f(x),x);
+df=matlabFunction(df,<span class="string">'vars'</span>,{x});
+dfa=df(-pi/2);
+xgr=linspace(-pi/2,pi/2,100);
+<span class="keyword">for</span> i=1:length(xgr)
+    [S(i),ds(i)]=SplineP(X,Y,xgr(i),dfa);
+<span class="keyword">end</span>
+plot(xgr,S,<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'b'</span>,<span class="string">'Markersize'</span>,10);
+figure(2)
+fplot(df,[-pi/2,pi/2]);
+hold <span class="string">on</span>;
+grid <span class="string">on</span>;
+plot(xgr,ds,<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'b'</span>,<span class="string">'Markersize'</span>,10);
+</pre><img vspace="5" hspace="5" src="ex4_01.png" alt=""> <img vspace="5" hspace="5" src="ex4_02.png" alt=""> <pre class="codeinput">figure(3);
+f=@(x)sin(x);
+n=4;
+X=linspace(-pi/2,pi/2,n+1);
+Y=f(X);
+fplot(f,[-pi/2,pi/2]);
+hold <span class="string">on</span>;
+grid <span class="string">on</span>;
+plot(X,Y,<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>,<span class="string">'Markersize'</span>,10);
+syms <span class="string">x</span>;
+df=diff(f(x),x);
+df=matlabFunction(df,<span class="string">'vars'</span>,{x});
+dfa=df(-pi/2);
+xgr=linspace(-pi/2,pi/2,100);
+<span class="keyword">for</span> i=1:length(xgr)
+    [S(i),ds(i)]=SplineP(X,Y,xgr(i),dfa);
+<span class="keyword">end</span>
+plot(xgr,S,<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'b'</span>,<span class="string">'Markersize'</span>,10);
+figure(4)
+fplot(df,[-pi/2,pi/2]);
+hold <span class="string">on</span>;
+grid <span class="string">on</span>;
+plot(xgr,ds,<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'b'</span>,<span class="string">'Markersize'</span>,10);
+</pre><img vspace="5" hspace="5" src="ex4_03.png" alt=""> <img vspace="5" hspace="5" src="ex4_04.png" alt=""> <pre class="codeinput">figure(5);
+f=@(x)sin(x);
+n=10;
+X=linspace(-pi/2,pi/2,n+1);
+Y=f(X);
+fplot(f,[-pi/2,pi/2]);
+hold <span class="string">on</span>;
+grid <span class="string">on</span>;
+plot(X,Y,<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>,<span class="string">'Markersize'</span>,10);
+syms <span class="string">x</span>;
+df=diff(f(x),x);
+df=matlabFunction(df,<span class="string">'vars'</span>,{x});
+dfa=df(-pi/2);
+xgr=linspace(-pi/2,pi/2,100);
+<span class="keyword">for</span> i=1:length(xgr)
+    [S(i),ds(i)]=SplineP(X,Y,xgr(i),dfa);
+<span class="keyword">end</span>
+plot(xgr,S,<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'b'</span>,<span class="string">'Markersize'</span>,10);
+figure(6)
+fplot(df,[-pi/2,pi/2]);
+hold <span class="string">on</span>;
+grid <span class="string">on</span>;
+plot(xgr,ds,<span class="string">'o'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'b'</span>,<span class="string">'Markersize'</span>,10);
+</pre><img vspace="5" hspace="5" src="ex4_05.png" alt=""> <img vspace="5" hspace="5" src="ex4_06.png" alt=""> <pre class="codeinput">f=@(x)sin(x);
+n=10;
+X=linspace(-pi/2,pi/2,n+1);
+Y=f(X);
+xgr=linspace(-pi/2,pi/2,100);
+[y,ypr]=SplinePv(X,Y,xgr,dfa)
+</pre><pre class="codeoutput">
+y =
+
+  Columns 1 through 7
+
+   -1.0000   -0.9995   -0.9980   -0.9955   -0.9920   -0.9875   -0.9820
+
+  Columns 8 through 14
+
+   -0.9755   -0.9680   -0.9596   -0.9501   -0.9396   -0.9283   -0.9161
+
+  Columns 15 through 21
+
+   -0.9029   -0.8889   -0.8740   -0.8581   -0.8414   -0.8238   -0.8052
+
+  Columns 22 through 28
+
+   -0.7859   -0.7659   -0.7452   -0.7237   -0.7016   -0.6787   -0.6551
+
+  Columns 29 through 35
+
+   -0.6308   -0.6057   -0.5800   -0.5537   -0.5270   -0.4999   -0.4722
+
+  Columns 36 through 42
+
+   -0.4441   -0.4156   -0.3866   -0.3571   -0.3272   -0.2968   -0.2663
+
+  Columns 43 through 49
+
+   -0.2355   -0.2046   -0.1736   -0.1424   -0.1110   -0.0795   -0.0478
+
+  Columns 50 through 56
+
+   -0.0160    0.0160    0.0478    0.0795    0.1110    0.1424    0.1736
+
+  Columns 57 through 63
+
+    0.2046    0.2355    0.2663    0.2968    0.3272    0.3571    0.3866
+
+  Columns 64 through 70
+
+    0.4156    0.4441    0.4722    0.4999    0.5270    0.5537    0.5800
+
+  Columns 71 through 77
+
+    0.6057    0.6308    0.6551    0.6787    0.7016    0.7237    0.7452
+
+  Columns 78 through 84
+
+    0.7659    0.7859    0.8052    0.8238    0.8414    0.8581    0.8740
+
+  Columns 85 through 91
+
+    0.8889    0.9029    0.9161    0.9283    0.9396    0.9501    0.9596
+
+  Columns 92 through 98
+
+    0.9680    0.9755    0.9820    0.9875    0.9920    0.9955    0.9980
+
+  Columns 99 through 100
+
+    0.9995    1.0000
+
+
+ypr =
+
+  Columns 1 through 7
+
+    0.0000    0.0315    0.0629    0.0944    0.1259    0.1574    0.1888
+
+  Columns 8 through 14
+
+    0.2203    0.2518    0.2833    0.3144    0.3428    0.3712    0.3996
+
+  Columns 15 through 21
+
+    0.4280    0.4564    0.4848    0.5132    0.5416    0.5700    0.5972
+
+  Columns 22 through 28
+
+    0.6197    0.6422    0.6648    0.6873    0.7098    0.7324    0.7549
+
+  Columns 29 through 35
+
+    0.7774    0.8000    0.8201    0.8345    0.8490    0.8635    0.8779
+
+  Columns 36 through 42
+
+    0.8924    0.9069    0.9213    0.9358    0.9503    0.9610    0.9659
+
+  Columns 43 through 49
+
+    0.9709    0.9759    0.9809    0.9859    0.9909    0.9958    1.0008
+
+  Columns 50 through 56
+
+    1.0058    1.0058    1.0008    0.9958    0.9909    0.9859    0.9809
+
+  Columns 57 through 63
+
+    0.9759    0.9709    0.9659    0.9610    0.9503    0.9358    0.9213
+
+  Columns 64 through 70
+
+    0.9069    0.8924    0.8779    0.8635    0.8490    0.8345    0.8201
+
+  Columns 71 through 77
+
+    0.8000    0.7774    0.7549    0.7324    0.7098    0.6873    0.6648
+
+  Columns 78 through 84
+
+    0.6422    0.6197    0.5972    0.5700    0.5416    0.5132    0.4848
+
+  Columns 85 through 91
+
+    0.4564    0.4280    0.3996    0.3712    0.3428    0.3144    0.2833
+
+  Columns 92 through 98
+
+    0.2518    0.2203    0.1888    0.1574    0.1259    0.0944    0.0629
+
+  Columns 99 through 100
+
+    0.0315    0.0000
+
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% ex4
+%%
+figure(1);
+f=@(x)sin(x);
+n=2;
+X=linspace(-pi/2,pi/2,n+1);
+Y=f(X);
+fplot(f,[-pi/2,pi/2]);
+hold on;
+grid on;
+plot(X,Y,'o','MarkerFaceColor','r','Markersize',10);
+syms x;
+df=diff(f(x),x);
+df=matlabFunction(df,'vars',{x});
+dfa=df(-pi/2);
+xgr=linspace(-pi/2,pi/2,100);
+for i=1:length(xgr)
+    [S(i),ds(i)]=SplineP(X,Y,xgr(i),dfa);
+end
+plot(xgr,S,'o','MarkerFaceColor','b','Markersize',10);
+figure(2)
+fplot(df,[-pi/2,pi/2]);
+hold on;
+grid on;
+plot(xgr,ds,'o','MarkerFaceColor','b','Markersize',10);
+%%
+figure(3);
+f=@(x)sin(x);
+n=4;
+X=linspace(-pi/2,pi/2,n+1);
+Y=f(X);
+fplot(f,[-pi/2,pi/2]);
+hold on;
+grid on;
+plot(X,Y,'o','MarkerFaceColor','r','Markersize',10);
+syms x;
+df=diff(f(x),x);
+df=matlabFunction(df,'vars',{x});
+dfa=df(-pi/2);
+xgr=linspace(-pi/2,pi/2,100);
+for i=1:length(xgr)
+    [S(i),ds(i)]=SplineP(X,Y,xgr(i),dfa);
+end
+plot(xgr,S,'o','MarkerFaceColor','b','Markersize',10);
+figure(4)
+fplot(df,[-pi/2,pi/2]);
+hold on;
+grid on;
+plot(xgr,ds,'o','MarkerFaceColor','b','Markersize',10);
+%%
+figure(5);
+f=@(x)sin(x);
+n=10;
+X=linspace(-pi/2,pi/2,n+1);
+Y=f(X);
+fplot(f,[-pi/2,pi/2]);
+hold on;
+grid on;
+plot(X,Y,'o','MarkerFaceColor','r','Markersize',10);
+syms x;
+df=diff(f(x),x);
+df=matlabFunction(df,'vars',{x});
+dfa=df(-pi/2);
+xgr=linspace(-pi/2,pi/2,100);
+for i=1:length(xgr)
+    [S(i),ds(i)]=SplineP(X,Y,xgr(i),dfa);
+end
+plot(xgr,S,'o','MarkerFaceColor','b','Markersize',10);
+figure(6)
+fplot(df,[-pi/2,pi/2]);
+hold on;
+grid on;
+plot(xgr,ds,'o','MarkerFaceColor','b','Markersize',10);
+%%
+f=@(x)sin(x);
+n=10;
+X=linspace(-pi/2,pi/2,n+1);
+Y=f(X);
+xgr=linspace(-pi/2,pi/2,100);
+[y,ypr]=SplinePv(X,Y,xgr,dfa)
+##### SOURCE END #####
+--></body></html>
